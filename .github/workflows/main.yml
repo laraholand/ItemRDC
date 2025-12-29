@@ -29,21 +29,29 @@ jobs:
           flutter-version: "3.16.0"
           cache: true
 
-      # 4️⃣ Flutter dependencies
+      # 4️⃣ Clean Flutter project to remove old build artifacts
+      - name: Clean Flutter project
+        run: flutter clean
+        working-directory: ./
+
+      # 5️⃣ Flutter dependencies
       - name: Install dependencies
         run: flutter pub get
+        working-directory: ./
 
-      # 5️⃣ Analyze (optional but good)
+      # 6️⃣ Analyze project (optional but recommended)
       - name: Analyze project
         run: flutter analyze
+        working-directory: ./
         continue-on-error: true
 
-      # 6️⃣ Build Debug APK (faster, no signing issues)
+      # 7️⃣ Build Debug APK
       - name: Build Debug APK
         run: flutter build apk --debug
+        working-directory: ./
 
-      # 7️⃣ Upload APK as artifact
-      - name: Upload APK
+      # 8️⃣ Upload APK as artifact
+      - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: itemrdc-debug-apk
