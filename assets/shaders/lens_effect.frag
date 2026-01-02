@@ -1,4 +1,6 @@
-#version 460 core
+#version 320 es
+
+precision mediump float;
 
 // Input from the vertex shader - the coordinate of the pixel in the texture
 in vec2 v_textureCoordinates;
