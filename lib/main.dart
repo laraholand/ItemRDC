@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
             Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage('https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?q=80&w=1932'),
+                  image: AssetImage('assets/images/wallpaper_light.webp'),
                   fit: BoxFit.cover,
                 ),
               ),
