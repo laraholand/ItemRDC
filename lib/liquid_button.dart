@@ -121,11 +121,13 @@ class _LiquidButtonState extends State<LiquidButton>
               ),
               ShaderMask(
                 shaderCallback: (bounds) {
-                  widget.shader
-                    ..setFloat(0, bounds.width)
-                    ..setFloat(1, bounds.height)
-                    ..setFloat(2, 0.5) // u_lens_radius
-                    ..setFloat(3, 0.25); // u_refraction
+                  // Set the uniforms for the shader
+                  // widget.shader
+                  //   ..setFloat(0, bounds.width)
+                  //   ..setFloat(1, bounds.height)
+                  //   ..setFloat(2, 0.5) // u_lens_radius
+                  //   ..setFloat(3, 0.25); // u_refraction
+
                   return widget.shader;
                 },
                 blendMode: BlendMode.srcOver,
