@@ -5,11 +5,17 @@ class GlowTextField extends StatefulWidget {
   final TextEditingController? controller;
   final Color backgroundColor;
   final Color textColor;
+  final IconData? icon;
+  final TextInputType inputType;
+  final bool isPassword;
 
   const GlowTextField({
     super.key,
     required this.label,
     this.controller,
+    this.icon,
+    this.isPassword = false,
+    this.inputType = TextInputType.text,
     this.backgroundColor = const Color(0xffffffff),
     this.textColor = Colors.black,
   });
@@ -23,6 +29,8 @@ class _GlowTextFieldState extends State<GlowTextField>
   late AnimationController _controller;
   late Animation<Color?> _glowAnimation;
   final FocusNode _focusNode = FocusNode();
+
+  bool _obscureText = true;
 
   @override
   void initState() {
@@ -99,6 +107,8 @@ class _GlowTextFieldState extends State<GlowTextField>
           child: TextField(
             controller: widget.controller,
             focusNode: _focusNode,
+            keyboardType: widget.inputType,
+            obscureText: widget.isPassword ? _obscureText : false,
             style: TextStyle(color: widget.textColor),
             decoration: InputDecoration(
               labelText: widget.label,
@@ -106,6 +116,28 @@ class _GlowTextFieldState extends State<GlowTextField>
               border: InputBorder.none,
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+
+              // 👈 Left Icon
+              prefixIcon: widget.icon != null
+                  ? Icon(widget.icon, color: Colors.grey)
+                  : null,
+
+              // 👁 Eye Icon for password
+              suffixIcon: widget.isPassword
+                  ? IconButton(
+                      icon: Icon(
+                        _obscureText
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                    )
+                  : null,
             ),
           ),
         );
