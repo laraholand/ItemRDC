@@ -71091,7 +71091,7 @@ s=r.w=A.bU(null,A.dw(0,0,2),null,null,r)
 s.bf()
 s.ci$.D(0,new A.ad2(r))},
 S(a){var s=null,r=t.g
-return A.alU(A.nJ(B.cE,A.c([A.tE(A.Du(B.A3,B.O,B.ln,s,220,s,s,220),B.b7,new A.wd()),A.am5(A.SU(A.c([A.EB(B.k,this.d,B.Ly,!1,"Enter phone number",B.l),B.k0,A.EB(B.k,this.e,B.xE,!1,"Enter Email",B.l),B.k0,A.EB(B.k,this.f,B.k5,!0,"Enter Password",B.l),B.xi,A.alS(A.c([B.P5,B.xk,A.F1(s,B.mj,s,s,new A.acZ(),s,A.WZ(s,B.l,s,s,s,s,s,s,s,s,s,s,s,s,B.eN,s,s,s),"Sign Up")],r))],r),B.bz,B.fH),B.lP),A.wa(20,A.X6(!1,!0,B.P8,s,!0,s,s,s,s,s,s,new A.ad_(a),s,s,s),s,s,20,s,s,s),A.wa(15,A.F1(s,B.Ct,s,s,new A.ad0(),s,s,"Support"),s,s,s,20,s,s)],r),B.a1,B.cv),!0)}}
+return A.alU(A.nJ(B.cE,A.c([A.tE(A.Du(B.A3,B.O,B.ln,s,220,s,s,220),B.b7,new A.wd()),A.am5(A.SU(A.c([A.EB(B.k,this.d,B.Ly,!1," Phone number",B.l),B.k0,A.EB(B.k,this.e,B.xE,!1,"Email address ",B.l),B.k0,A.EB(B.k,this.f,B.k5,!0,"Password",B.l),B.xi,A.alS(A.c([B.P5,B.xk,A.F1(s,B.mj,s,s,new A.acZ(),s,A.WZ(s,B.l,s,s,s,s,s,s,s,s,s,s,s,s,B.eN,s,s,s),"Sign Up")],r))],r),B.bz,B.fH),B.lP),A.wa(20,A.X6(!1,!0,B.P8,s,!0,s,s,s,s,s,s,new A.ad_(a),s,s,s),s,s,20,s,s,s),A.wa(15,A.F1(s,B.Ct,s,s,new A.ad0(),s,s,"Support"),s,s,s,20,s,s)],r),B.a1,B.cv),!0)}}
 A.ad2.prototype={
 $0(){this.a.ap(new A.ad1())},
 $S:0}
@@ -71124,7 +71124,7 @@ ak(){var s=$.af()
 return new A.LJ(new A.l0(B.dh,s),new A.l0(B.dh,s))}}
 A.LJ.prototype={
 S(a){var s=null,r=t.g
-return A.alU(A.nJ(B.cE,A.c([A.tE(A.Du(B.A2,B.O,B.ln,s,220,s,s,220),B.b7,new A.wd()),A.am5(A.SU(A.c([A.EB(B.k,this.d,B.k5,!1,"Enter Email",B.l),B.k0,A.EB(B.k,this.e,B.k5,!0,"Enter Password",B.l),B.xi,A.alS(A.c([B.P6,B.xk,A.F1(s,B.mj,s,s,new A.aam(),s,A.WZ(s,B.l,s,s,s,s,s,s,s,s,s,s,s,s,B.eN,s,s,s),"Login")],r))],r),B.bz,B.fH),B.lP),A.wa(20,A.X6(!1,!0,B.P7,s,!0,s,s,s,s,s,s,new A.aan(a),s,s,s),s,s,20,s,s,s),A.wa(20,A.X6(!1,!0,B.P3,s,!0,s,s,s,s,s,s,new A.aao(),s,s,s),s,s,s,20,s,s)],r),B.a1,B.cv),!0)}}
+return A.alU(A.nJ(B.cE,A.c([A.tE(A.Du(B.A2,B.O,B.ln,s,220,s,s,220),B.b7,new A.wd()),A.am5(A.SU(A.c([A.EB(B.k,this.d,B.k5,!1,"Email address",B.l),B.k0,A.EB(B.k,this.e,B.k5,!0,"Password",B.l),B.xi,A.alS(A.c([B.P6,B.xk,A.F1(s,B.mj,s,s,new A.aam(),s,A.WZ(s,B.l,s,s,s,s,s,s,s,s,s,s,s,s,B.eN,s,s,s),"Login")],r))],r),B.bz,B.fH),B.lP),A.wa(20,A.X6(!1,!0,B.P7,s,!0,s,s,s,s,s,s,new A.aan(a),s,s,s),s,s,20,s,s,s),A.wa(20,A.X6(!1,!0,B.P3,s,!0,s,s,s,s,s,s,new A.aao(),s,s,s),s,s,s,20,s,s)],r),B.a1,B.cv),!0)}}
 A.aam.prototype={
 $0(){A.Cb().$1("Login clicked")},
 $S:0}
