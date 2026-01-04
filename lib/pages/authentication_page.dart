@@ -61,7 +61,7 @@ fontWeight: FontWeight.bold,
         child: Column(  
           children: [  
             GlowTextField(  
-              label: "Enter phone number",  
+              label: " Phone number",  
               controller: phoneController,  
               backgroundColor: Colors.white,  
               inputType: TextInputType.number,  
@@ -69,7 +69,7 @@ fontWeight: FontWeight.bold,
             ),  
             const SizedBox(height: 15),  
             GlowTextField(  
-              label: "Enter Email",  
+              label: "Email address ",  
               controller: emailController,  
               inputType: TextInputType.emailAddress,  
               backgroundColor: Colors.white,  
@@ -77,7 +77,7 @@ fontWeight: FontWeight.bold,
             ),  
             const SizedBox(height: 15),  
             GlowTextField(  
-              label: "Enter Password",  
+              label: "Password",  
               controller: passwordController,  
               isPassword: true,  
               textColor: Colors.black,  
@@ -210,14 +210,14 @@ fontWeight: FontWeight.bold,
         child: Column(  
           children: [  
             GlowTextField(  
-              label: "Enter Email",  
+              label: "Email address",  
               controller: emailController,  
               backgroundColor: Colors.white,  
               textColor: Colors.black,  
             ),  
             const SizedBox(height: 15),  
             GlowTextField(  
-              label: "Enter Password",  
+              label: "Password",  
               controller: passwordController,  
               isPassword: true,  
               textColor: Colors.black,  
