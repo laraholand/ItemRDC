@@ -21,16 +21,16 @@ class _SignUpPageState extends State<SignUpPage> with SingleTickerProviderStateM
     super.initState();
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 5),
     );
 
-     animation = Tween(begin:1.0,end:0.0).animate(animationController);
+     animation = Tween(begin:1.0,end:220.0).animate(animationController);
 
     animationController.addListener(() {
       setState(() {});
     });
 
-    // animationController.forward(); // Call when needed, e.g., on button click
+    animationController.forward(); // Call when needed, e.g., on button click
   }
 
   @override
@@ -126,8 +126,8 @@ class _SignUpPageState extends State<SignUpPage> with SingleTickerProviderStateM
           ClipPath(
             clipper: QuarterCircleClipper(),
             child: Container(
-              width: 400,
-              height: 400,
+              width: animation.value==1.0?500:animation.value,
+              height: animation.value==1.0?500:animation.value,
               color: const Color(0xffcff3f4),
               child: const Center(
                 child: Text(
@@ -180,7 +180,26 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  late AnimationController animationController;
+  late Animation animation;
 
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    );
+
+     animation = Tween(begin:1.0,end:220.0).animate(animationController);
+
+    animationController.addListener(() {
+      setState(() {});
+    });
+
+    animationController.forward(); // Call when needed, e.g., on button click
+  }
+    
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -262,8 +281,8 @@ class _LoginPageState extends State<LoginPage> {
           ClipPath(
             clipper: QuarterCircleClipper(),
             child: Container(
-              width: 400,
-              height: 400,
+              width: animation.value==1.0?500:animation.value,
+              height: animation.value==1.0?500:animation.value,
               color: const Color(0xffcff3f4),
               child: const Center(
                 child: Text(
