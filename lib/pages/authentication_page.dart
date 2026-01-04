@@ -8,40 +8,54 @@ class SignUpPage extends StatefulWidget {
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> with SingleTickerProviderStateMixin {
+class _SignUpPageState extends State<SignUpPage>
+    with SingleTickerProviderStateMixin {
   final phoneController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   late AnimationController animationController;
-  late Animation animation;
+  late Animation<double> animation;
 
   @override
   void initState() {
     super.initState();
+
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),
     );
 
-     animation = Tween(begin:1.0,end:220.0).animate(animationController);
+    // প্রথমে ডামি Tween দিয়ে রাখি
+    animation = Tween<double>(begin: 1, end: 220).animate(animationController);
 
-    animationController.addListener(() {
-      setState(() {});
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // স্ক্রিন সাইজ পাওয়া
+      final screenWidth = MediaQuery.of(context).size.width;
+
+      // Tween আপডেট করি পুরো স্ক্রিন থেকে ছোট 220 পর্যন্ত
+      animation = Tween<double>(begin: screenWidth, end: 220).animate(
+        CurvedAnimation(parent: animationController, curve: Curves.easeOut),
+      )..addListener(() {
+          setState(() {});
+        });
+
+      animationController.forward();
     });
+  }
 
-    animationController.forward(); // Call when needed, e.g., on button click
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
-
-
-          /// Scrollable Form
+          /// Form
           SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(20, 240, 20, 100),
             child: Column(
@@ -69,7 +83,6 @@ class _SignUpPageState extends State<SignUpPage> with SingleTickerProviderStateM
                   textColor: Colors.black,
                 ),
                 const SizedBox(height: 25),
-
                 Row(
                   children: [
                     const Text(
@@ -81,10 +94,7 @@ class _SignUpPageState extends State<SignUpPage> with SingleTickerProviderStateM
                     ),
                     const Spacer(),
                     IconButton(
-                      onPressed: () {
-                        debugPrint("Sign Up clicked");
-                      },
-                      tooltip: "Sign Up",
+                      onPressed: () {},
                       icon: const Icon(Icons.arrow_forward, color: Colors.white),
                       style: IconButton.styleFrom(
                         backgroundColor: Colors.black,
@@ -97,37 +107,12 @@ class _SignUpPageState extends State<SignUpPage> with SingleTickerProviderStateM
             ),
           ),
 
-          /// Bottom Left
-          Positioned(
-            bottom: 20,
-            left: 20,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const LoginPage()),
-                );
-              },
-              child: const Text("Already have an account?"),
-            ),
-          ),
-
-          /// Bottom Right
-          Positioned(
-            bottom: 15,
-            right: 20,
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.help),
-              tooltip: "Support",
-            ),
-          ),
-                    /// Header Shape
+          /// Animated ClipPath
           ClipPath(
             clipper: QuarterCircleClipper(),
             child: Container(
-              width: animation.value==1.0?500:animation.value,
-              height: animation.value==1.0?500:animation.value,
+              width: animation.value,
+              height: animation.value,
               color: const Color(0xffcff3f4),
               child: const Center(
                 child: Text(
@@ -191,13 +176,24 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       duration: const Duration(seconds: 5),
     );
 
-     animation = Tween(begin:1.0,end:220.0).animate(animationController);
+     animation = Tween<double>(begin: 1, end: 220).animate(animationController);
 
-    animationController.addListener(() {
-      setState(() {});
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // স্ক্রিন সাইজ পাওয়া
+      final screenWidth = MediaQuery.of(context).size.width;
+
+      // Tween আপডেট করি পুরো স্ক্রিন থেকে ছোট 220 পর্যন্ত
+      animation = Tween<double>(begin: screenWidth, end: 220).animate(
+        CurvedAnimation(parent: animationController, curve: Curves.easeOut),
+      )..addListener(() {
+          setState(() {});
+        });
+
+      animationController.forward();
     });
 
-    animationController.forward(); // Call when needed, e.g., on button click
+    
+    
   }
     
   @override
