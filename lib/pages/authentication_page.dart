@@ -144,7 +144,9 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Row(
             children: [
               InkWell(
-                onTap: () => MaterialPageRoute(builder: (_) => const LoginPage()),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const LoginPage()),
                 child: const Text(
                   "Already have an account?",
                   style: TextStyle(color: Colors.grey),
@@ -153,7 +155,7 @@ class _SignUpPageState extends State<SignUpPage> {
               const Spacer(),
               InkWell(
                 onTap: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => const LoginPage()),
                   );
@@ -385,7 +387,9 @@ class _LoginPageState extends State<LoginPage> {
                             const Spacer(),
                             IconButton(
                               icon: const Icon(Icons.arrow_forward_ios, color: Colors.white),
-                              onPressed: () => MaterialPageRoute(builder: (_) => const HomePage()),
+                              onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (_) => const HomePage()),
                             ),
                           ],
                         ),
