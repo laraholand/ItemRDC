@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itemrdc/util/glow_text_field.dart';
 
-/// Sign Up Page
+/// ---------------- SIGN UP PAGE ----------------
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
@@ -9,52 +9,15 @@ class SignUpPage extends StatefulWidget {
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage>
-    with SingleTickerProviderStateMixin {
+class _SignUpPageState extends State<SignUpPage> {
   final phoneController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  late AnimationController animationController;
-  late Animation<double> widthAnimation;
-  late Animation<double> heightAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-
-    // ডামি Tween
-    widthAnimation = Tween<double>(begin: 1, end: 220).animate(animationController);
-    heightAnimation = Tween<double>(begin: 1, end: 220).animate(animationController);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final screenSize = MediaQuery.of(context).size;
-
-      widthAnimation = Tween<double>(begin: screenSize.width, end: 220).animate(
-        CurvedAnimation(parent: animationController, curve: Curves.linear),
-      )..addListener(() => setState(() {}));
-
-      heightAnimation = Tween<double>(begin: screenSize.height, end: 220).animate(
-        CurvedAnimation(parent: animationController, curve: Curves.linear),
-      );
-
-      animationController.forward();
-    });
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -66,8 +29,8 @@ class _SignUpPageState extends State<SignUpPage>
                 GlowTextField(
                   label: "Phone number",
                   controller: phoneController,
-                  backgroundColor: Colors.white,
                   inputType: TextInputType.number,
+                  backgroundColor: Colors.white,
                   textColor: Colors.black,
                 ),
                 const SizedBox(height: 15),
@@ -90,10 +53,7 @@ class _SignUpPageState extends State<SignUpPage>
                   children: [
                     const Text(
                       "Sign Up",
-                      style: TextStyle(
-                        fontSize: 27,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     IconButton(
@@ -114,9 +74,7 @@ class _SignUpPageState extends State<SignUpPage>
             bottom: 20,
             left: 20,
             child: InkWell(
-              onTap: () async{
-              await animationController.reverse();
-      if (!mounted) return;
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => const LoginPage()),
@@ -136,21 +94,18 @@ class _SignUpPageState extends State<SignUpPage>
             ),
           ),
 
-          /// Animated ClipPath
+          /// Static ClipPath
           ClipPath(
             clipper: QuarterCircleClipper(),
             child: Container(
-              width: heightAnimation.value,
-              height: heightAnimation.value,
+              width: size.width,
+              height: size.height * 0.35,
               color: const Color(0xffcff3f4),
               child: const Center(
                 child: Text(
                   "Welcome In\nItem RDC",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -161,7 +116,7 @@ class _SignUpPageState extends State<SignUpPage>
   }
 }
 
-/// Login Page
+/// ---------------- LOGIN PAGE ----------------
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -169,51 +124,15 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
+class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  late AnimationController animationController;
-  late Animation<double> widthAnimation;
-  late Animation<double> heightAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-
-    widthAnimation = Tween<double>(begin: 1, end: 220).animate(animationController);
-    heightAnimation = Tween<double>(begin: 1, end: 220).animate(animationController);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final screenSize = MediaQuery.of(context).size;
-
-      widthAnimation = Tween<double>(begin: screenSize.width, end: 220).animate(
-        CurvedAnimation(parent: animationController, curve: Curves.linear),
-      )..addListener(() => setState(() {}));
-
-      heightAnimation = Tween<double>(begin: screenSize.height, end: 220).animate(
-        CurvedAnimation(parent: animationController, curve: Curves.linear),
-      );
-
-      animationController.forward();
-    });
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -238,10 +157,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                   children: [
                     const Text(
                       "Sign In",
-                      style: TextStyle(
-                        fontSize: 27,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     IconButton(
@@ -262,11 +178,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
             bottom: 20,
             left: 20,
             child: InkWell(
-              onTap: () async {
-              await animationController.reverse();
-      if (!mounted) return;
-                Navigator.pop(context);
-              },
+              onTap: () => Navigator.pop(context),
               child: const Text("Don't have an account?"),
             ),
           ),
@@ -275,28 +187,23 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
             bottom: 20,
             right: 20,
             child: InkWell(
-              onTap: () {
-                debugPrint("Forget password clicked");
-              },
+              onTap: () => debugPrint("Forget password clicked"),
               child: const Text("Forget password"),
             ),
           ),
 
-          /// Animated ClipPath
+          /// Static ClipPath
           ClipPath(
             clipper: QuarterCircleClipper(),
             child: Container(
-              width: heightAnimation.value,
-              height: heightAnimation.value,
+              width: size.width,
+              height: size.height * 0.35,
               color: const Color(0xffcff3f4),
               child: const Center(
                 child: Text(
                   "Welcome\nBack",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -307,7 +214,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   }
 }
 
-/// Custom Clipper
+/// ---------------- CLIPPER ----------------
 class QuarterCircleClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
