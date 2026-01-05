@@ -135,35 +135,38 @@ class Particle {
 
 class ParticlePainter extends CustomPainter {
   final List<Particle> particles;
+  
+  // এই লাইনটি যোগ করা হয়েছে
+  static const double connectDistance = 130; 
+
   ParticlePainter(this.particles);
 
   @override
   void paint(Canvas canvas, Size size) {
     final pPaint = Paint()..style = PaintingStyle.fill;
 
-    // draw connections
     for (int i = 0; i < particles.length; i++) {
       for (int j = i + 1; j < particles.length; j++) {
         final a = particles[i];
         final b = particles[j];
         final d = (a.pos - b.pos).distance;
 
+        // এখন এই connectDistance কাজ করবে
         if (d < connectDistance) {
           final alpha = (1 - d / connectDistance) * 0.8;
           canvas.drawLine(
             a.pos,
             b.pos,
             Paint()
-              ..color = Colors.blueGrey.withOpacity(alpha)
+              ..color = Colors.blueGrey.withOpacity(alpha.clamp(0.0, 1.0))
               ..strokeWidth = 1,
           );
         }
       }
     }
 
-    // draw particles
     for (final p in particles) {
-      pPaint.color = Colors.white.withOpacity(p.alpha * 0.5);
+      pPaint.color = Colors.white.withOpacity((p.alpha * 0.5).clamp(0.0, 1.0));
       canvas.drawCircle(p.pos, 2.2, pPaint);
     }
   }
