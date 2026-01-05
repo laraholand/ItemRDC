@@ -25,7 +25,7 @@ class _SignUpPageState extends State<SignUpPage>
 
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 1),
     );
 
     // ডামি Tween
@@ -183,7 +183,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 1),
     );
 
     widthAnimation = Tween<double>(begin: 1, end: 220).animate(animationController);
