@@ -151,7 +151,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   "Already have an account?",
                   style: TextStyle(color: Colors.grey),
                 ),
-              ),
+              )),
               const Spacer(),
               InkWell(
                 onTap: () {
@@ -390,7 +390,7 @@ class _LoginPageState extends State<LoginPage> {
                               onPressed: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (_) => const HomePage()),
-                            ),
+                            )),
                           ],
                         ),
                       ),
