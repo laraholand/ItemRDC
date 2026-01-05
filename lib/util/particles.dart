@@ -17,34 +17,42 @@ class _ParticleSceneState extends State<ParticleScene>
 
   static const int maxParticles = 100;
   static const double speed = 0.55;
-  static const double connectDistance = 130;
+
+  Size? _screenSize;
 
   @override
   void initState() {
     super.initState();
+    // Ticker create, but update logic will wait until screen size is available
     ticker = createTicker(_tick)..start();
+
+    // Wait for first frame to get size
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final box = context.findRenderObject() as RenderBox?;
+      if (box != null) {
+        _screenSize = box.size;
+        _spawnRandomFar(_screenSize!, 35); // Initial particles
+      }
+    });
   }
 
   void _tick(Duration _) {
+    if (_screenSize == null) return; // wait until size is available
+
     setState(() {
       for (final p in particles) {
         p.update();
       }
 
-      final box = context.findRenderObject() as RenderBox?;
-      if (box != null) {
-        particles.removeWhere((p) => p.dead(box.size));
-        _spawnRandomFar(box.size, 5);
-      }
+      particles.removeWhere((p) => p.dead(_screenSize!));
+      _spawnRandomFar(_screenSize!, 5);
     });
   }
 
   void _spawn(Offset pos, int amount) {
     for (int i = 0; i < amount && particles.length < maxParticles; i++) {
       final a = rand.nextDouble() * pi * 2;
-      final v = Offset(cos(a), sin(a)) *
-          ((rand.nextDouble() * 0.5 + 0.6) * speed);
-
+      final v = Offset(cos(a), sin(a)) * ((rand.nextDouble() * 0.5 + 0.6) * speed);
       particles.add(Particle(pos, v));
     }
   }
@@ -63,26 +71,16 @@ class _ParticleSceneState extends State<ParticleScene>
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // প্রথমবার particles spawn
-        if (particles.isEmpty) {
-          _spawnRandomFar(
-              Size(constraints.maxWidth, constraints.maxHeight), 35);
-        }
-
-        return Listener(
-          onPointerDown: (e) {
-            final pos = e.localPosition;
-            particles.removeWhere((p) => (p.pos - pos).distance < 50);
-            _spawn(pos, 2);
-          },
-          child: CustomPaint(
-            size: Size.infinite,
-            painter: ParticlePainter(particles),
-          ),
-        );
+    return Listener(
+      onPointerDown: (e) {
+        final pos = e.localPosition;
+        particles.removeWhere((p) => (p.pos - pos).distance < 50);
+        _spawn(pos, 2);
       },
+      child: CustomPaint(
+        size: Size.infinite,
+        painter: ParticlePainter(particles),
+      ),
     );
   }
 
