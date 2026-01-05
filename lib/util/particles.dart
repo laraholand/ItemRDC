@@ -23,34 +23,24 @@ class _ParticleSceneState extends State<ParticleScene>
   void initState() {
     super.initState();
     ticker = createTicker(_tick)..start();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final box = context.findRenderObject() as RenderBox?;
-      if (box != null) {
-        _spawnRandomFar(box.size, 35);
-      }
-    });
   }
 
   void _tick(Duration _) {
-    final box = context.findRenderObject() as RenderBox?;
-    if (box == null) return;
-
-    final size = box.size;
-
     setState(() {
       for (final p in particles) {
         p.update();
       }
 
-      particles.removeWhere((p) => p.dead(size));
-      _spawnRandomFar(size, 5);
+      final box = context.findRenderObject() as RenderBox?;
+      if (box != null) {
+        particles.removeWhere((p) => p.dead(box.size));
+        _spawnRandomFar(box.size, 5);
+      }
     });
   }
 
   void _spawn(Offset pos, int amount) {
-    for (int i = 0;
-        i < amount && particles.length < maxParticles;
-        i++) {
+    for (int i = 0; i < amount && particles.length < maxParticles; i++) {
       final a = rand.nextDouble() * pi * 2;
       final v = Offset(cos(a), sin(a)) *
           ((rand.nextDouble() * 0.5 + 0.6) * speed);
@@ -62,10 +52,7 @@ class _ParticleSceneState extends State<ParticleScene>
   void _spawnRandomFar(Size s, int amount) {
     int tries = 0;
     while (particles.length < maxParticles && tries < amount * 10) {
-      final p = Offset(
-        rand.nextDouble() * s.width,
-        rand.nextDouble() * s.height,
-      );
+      final p = Offset(rand.nextDouble() * s.width, rand.nextDouble() * s.height);
 
       final close = particles.any((e) => (e.pos - p).distance < 80);
       if (!close) _spawn(p, 1);
@@ -76,23 +63,26 @@ class _ParticleSceneState extends State<ParticleScene>
 
   @override
   Widget build(BuildContext context) {
-    return IgnorePointer(
-      ignoring: false,
-      child: Listener(
-        onPointerDown: (e) {
-          final pos = e.localPosition;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // প্রথমবার particles spawn
+        if (particles.isEmpty) {
+          _spawnRandomFar(
+              Size(constraints.maxWidth, constraints.maxHeight), 35);
+        }
 
-          particles.removeWhere(
-            (p) => (p.pos - pos).distance < 50,
-          );
-
-          _spawn(pos, 2);
-        },
-        child: CustomPaint(
-          size: Size.infinite,
-          painter: ParticlePainter(particles),
-        ),
-      ),
+        return Listener(
+          onPointerDown: (e) {
+            final pos = e.localPosition;
+            particles.removeWhere((p) => (p.pos - pos).distance < 50);
+            _spawn(pos, 2);
+          },
+          child: CustomPaint(
+            size: Size.infinite,
+            painter: ParticlePainter(particles),
+          ),
+        );
+      },
     );
   }
 
@@ -114,9 +104,10 @@ class Particle {
         birth = DateTime.now().millisecondsSinceEpoch;
 
   void update() {
-    vel *= 0.995;
+    vel *= 0.995; // slow down
     pos += vel;
 
+    // fade out after 40 sec
     if (DateTime.now().millisecondsSinceEpoch - birth > 40000) {
       alpha -= 0.01;
     }
@@ -133,8 +124,7 @@ class Particle {
 
 class ParticlePainter extends CustomPainter {
   final List<Particle> particles;
-  
-  static const double connectDistance = 130; 
+  static const double connectDistance = 130;
 
   ParticlePainter(this.particles);
 
@@ -142,6 +132,7 @@ class ParticlePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final pPaint = Paint()..style = PaintingStyle.fill;
 
+    // Draw connections
     for (int i = 0; i < particles.length; i++) {
       for (int j = i + 1; j < particles.length; j++) {
         final a = particles[i];
@@ -161,8 +152,10 @@ class ParticlePainter extends CustomPainter {
       }
     }
 
+    // Draw particles
     for (final p in particles) {
-      pPaint.color = Colors.white.withOpacity((p.alpha * 0.5).clamp(0.0, 1.0));
+      pPaint.color =
+          Colors.white.withOpacity((p.alpha * 0.5).clamp(0.0, 1.0));
       canvas.drawCircle(p.pos, 2.2, pPaint);
     }
   }
