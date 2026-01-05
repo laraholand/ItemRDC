@@ -136,7 +136,6 @@ class _SignUpPageState extends State<SignUpPage> {
       backgroundColor: const Color(0xFF0F0F0F),
       persistentFooterButtons: [
         LiquidEffect(
-          autoBounce: true,
           child: Row(
             children: [
               InkWell(
@@ -198,8 +197,51 @@ class _SignUpPageState extends State<SignUpPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       // Top Row: Sign Up + Forward Icon
+                      
+
+                      // TextFields
                       LiquidEffect(
-                        autoBounce: true,
+                         
+                        child: GlowTextField(
+                          label: "Phone",
+                          icon: Icons.phone,
+                          controller: phoneController,
+                          backgroundColor: const Color(0xFF2A2A2A),
+                          textColor: Colors.white,
+                          inputType: TextInputType.phone,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+
+                      LiquidEffect(
+                         
+                        child: GlowTextField(
+                          label: "Email",
+                          icon: Icons.email,
+                          controller: emailController,
+                          backgroundColor: const Color(0xFF2A2A2A),
+                          textColor: Colors.white,
+                          inputType: TextInputType.emailAddress,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+
+                      LiquidEffect(
+                         
+                        child: GlowTextField(
+                          label: "Password",
+                          icon: Icons.lock,
+                          controller: passwordController,
+                          backgroundColor: const Color(0xFF2A2A2A),
+                          textColor: Colors.white,
+                          isPassword: true,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Sign Up Button
+                      LiquidEffect(
+                         
                         child: Row(
                           children: [
                             const Text(
@@ -214,78 +256,17 @@ class _SignUpPageState extends State<SignUpPage> {
                             LiquidEffect(
                               child: IconButton(
                                 icon: const Icon(Icons.arrow_forward_ios, color: Colors.white),
-                                onPressed: () {},
+                                onPressed: () {
+                                Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (_) => HomePage()),
+                                },
                               ),
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20),
-
-                      // TextFields
-                      LiquidEffect(
-                        autoBounce: true,
-                        child: GlowTextField(
-                          label: "Phone",
-                          icon: Icons.phone,
-                          controller: phoneController,
-                          backgroundColor: const Color(0xFF2A2A2A),
-                          textColor: Colors.white,
-                          inputType: TextInputType.phone,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-
-                      LiquidEffect(
-                        autoBounce: true,
-                        child: GlowTextField(
-                          label: "Email",
-                          icon: Icons.email,
-                          controller: emailController,
-                          backgroundColor: const Color(0xFF2A2A2A),
-                          textColor: Colors.white,
-                          inputType: TextInputType.emailAddress,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-
-                      LiquidEffect(
-                        autoBounce: true,
-                        child: GlowTextField(
-                          label: "Password",
-                          icon: Icons.lock,
-                          controller: passwordController,
-                          backgroundColor: const Color(0xFF2A2A2A),
-                          textColor: Colors.white,
-                          isPassword: true,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-
-                      // Sign Up Button
-                      LiquidEffect(
-                        autoBounce: true,
-                        child: LiquidButton(
-                          width: double.infinity,
-                          height: 50,
-                          backgroundColor: const Color(0xFFFFDD33),
-                          borderColor: Colors.transparent,
-                          onTap: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (_) => HomePage()),
-                            );
-                          },
-                          child: const Text(
-                            "Sign Up",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
+                      
                     ],
                   ),
                 ),
@@ -318,7 +299,7 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: const Color(0xFF0F0F0F),
       persistentFooterButtons: [
         LiquidEffect(
-          autoBounce: true,
+           
           child: Row(
             children: [
               InkWell(
@@ -372,8 +353,37 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       // Top Row: Login + Forward Icon
+                      
+                      // TextFields
                       LiquidEffect(
-                        autoBounce: true,
+                         
+                        child: GlowTextField(
+                          label: "Email",
+                          icon: Icons.email,
+                          controller: emailController,
+                          backgroundColor: const Color(0xFF2A2A2A),
+                          textColor: Colors.white,
+                          inputType: TextInputType.emailAddress,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+
+                      LiquidEffect(
+                         
+                        child: GlowTextField(
+                          label: "Password",
+                          icon: Icons.lock,
+                          controller: passwordController,
+                          backgroundColor: const Color(0xFF2A2A2A),
+                          textColor: Colors.white,
+                          isPassword: true,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Sign In Button
+                      LiquidEffect(
+                         
                         child: Row(
                           children: [
                             const Text(
@@ -388,65 +398,14 @@ class _LoginPageState extends State<LoginPage> {
                             LiquidEffect(
                               child: IconButton(
                                 icon: const Icon(Icons.arrow_forward_ios, color: Colors.white),
-                                onPressed: () {},
+                                onPressed: () =>Navigator.pop(context),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      
 
-                      // TextFields
-                      LiquidEffect(
-                        autoBounce: true,
-                        child: GlowTextField(
-                          label: "Email",
-                          icon: Icons.email,
-                          controller: emailController,
-                          backgroundColor: const Color(0xFF2A2A2A),
-                          textColor: Colors.white,
-                          inputType: TextInputType.emailAddress,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-
-                      LiquidEffect(
-                        autoBounce: true,
-                        child: GlowTextField(
-                          label: "Password",
-                          icon: Icons.lock,
-                          controller: passwordController,
-                          backgroundColor: const Color(0xFF2A2A2A),
-                          textColor: Colors.white,
-                          isPassword: true,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-
-                      // Sign In Button
-                      LiquidEffect(
-                        autoBounce: true,
-                        child: LiquidButton(
-                          width: double.infinity,
-                          height: 50,
-                          backgroundColor: const Color(0xFFFFDD33),
-                          borderColor: Colors.transparent,
-                          onTap: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (_) => HomePage()),
-                            );
-                          },
-                          child: const Text(
-                            "Sign In",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
