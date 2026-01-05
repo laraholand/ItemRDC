@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:itemrdc/pages/home_page.dart';
-import 'package:itemrdc/util/glow_text_field.dart';
-import 'package:itemrdc/util/liquid_button.dart';
-import 'package:itemrdc/util/particles.dart'; // ParticleScene
+import 'package:glassmorphism/glassmorphism.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  const SignUpPage({super.key});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -21,17 +18,30 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       body: Stack(
         children: [
-          /// 🔥 PARTICLE BACKGROUND
-          const Positioned.fill(
-            child: ParticleScene(),
+          /// 🔥 Background image (glass effect আরও সুন্দর হবে)
+          Positioned.fill(
+            child: Image.network(
+              'https://images.unsplash.com/photo-1685330972883-66b9c5e7d8e3?auto=format&fit=crop&w=800&q=80',
+              fit: BoxFit.cover,
+            ),
           ),
 
-          /// 🎨 overlay (UI readable রাখতে)
+          /// 🌫 Glass overlay for readability
           Positioned.fill(
-            child: IgnorePointer(
-              ignoring: true, // ✅ overlay touch ignore করবে
-              child: Container(
-                color: Colors.white.withOpacity(0.85),
+            child: GlassmorphicContainer(
+              width: double.infinity,
+              height: double.infinity,
+              borderRadius: 0,
+              blur: 20,
+              alignment: Alignment.center,
+              border: 0,
+              linearGradient: LinearGradient(
+                colors: [
+                  Colors.white.withOpacity(0.2),
+                  Colors.white.withOpacity(0.2),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
             ),
           ),
@@ -39,18 +49,35 @@ class _SignUpPageState extends State<SignUpPage> {
           /// TOP SHAPE
           ClipPath(
             clipper: QuarterCircleClipper(),
-            child: Container(
+            child: GlassmorphicContainer(
               width: 200,
               height: 200,
-              color: const Color(0xffcff3f4),
+              borderRadius: 0,
+              blur: 15,
+              alignment: Alignment.center,
+              border: 2,
+              linearGradient: LinearGradient(
+                colors: [
+                  Colors.white.withOpacity(0.3),
+                  Colors.white.withOpacity(0.1),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderGradient: LinearGradient(
+                colors: [
+                  Colors.white.withOpacity(0.5),
+                  Colors.white.withOpacity(0.5),
+                ],
+              ),
               child: const Center(
                 child: Text(
                   "Welcome In \nItem RDC",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 26,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Colors.black87,
                   ),
                 ),
               ),
@@ -59,94 +86,138 @@ class _SignUpPageState extends State<SignUpPage> {
 
           /// FORM
           Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: GlowTextField(
-                    label: "Enter phone number",
-                    backgroundColor: Colors.white,
-                    controller: phoneController,
-                    textColor: Colors.black,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  /// Phone
+                  GlassmorphicContainer(
+                    width: double.infinity,
+                    height: 60,
+                    borderRadius: 20,
+                    blur: 15,
+                    alignment: Alignment.center,
+                    border: 1,
+                    linearGradient: LinearGradient(
+                      colors: [
+                        Colors.white.withOpacity(0.2),
+                        Colors.white.withOpacity(0.1),
+                      ],
+                    ),
+                    borderGradient: LinearGradient(
+                      colors: [Colors.white.withOpacity(0.5), Colors.white.withOpacity(0.5)],
+                    ),
+                    child: TextField(
+                      controller: phoneController,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Enter phone number",
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      ),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: GlowTextField(
-                    label: "Enter Email",
-                    backgroundColor: Colors.white,
-                    controller: emailController,
-                    textColor: Colors.black,
+
+                  const SizedBox(height: 16),
+
+                  /// Email
+                  GlassmorphicContainer(
+                    width: double.infinity,
+                    height: 60,
+                    borderRadius: 20,
+                    blur: 15,
+                    alignment: Alignment.center,
+                    border: 1,
+                    linearGradient: LinearGradient(
+                      colors: [
+                        Colors.white.withOpacity(0.2),
+                        Colors.white.withOpacity(0.1),
+                      ],
+                    ),
+                    borderGradient: LinearGradient(
+                      colors: [Colors.white.withOpacity(0.5), Colors.white.withOpacity(0.5)],
+                    ),
+                    child: TextField(
+                      controller: emailController,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Enter Email",
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      ),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: GlowTextField(
-                    label: "Enter Password",
-                    controller: passwordController,
-                    textColor: Colors.black,
+
+                  const SizedBox(height: 16),
+
+                  /// Password
+                  GlassmorphicContainer(
+                    width: double.infinity,
+                    height: 60,
+                    borderRadius: 20,
+                    blur: 15,
+                    alignment: Alignment.center,
+                    border: 1,
+                    linearGradient: LinearGradient(
+                      colors: [
+                        Colors.white.withOpacity(0.2),
+                        Colors.white.withOpacity(0.1),
+                      ],
+                    ),
+                    borderGradient: LinearGradient(
+                      colors: [Colors.white.withOpacity(0.5), Colors.white.withOpacity(0.5)],
+                    ),
+                    child: TextField(
+                      controller: passwordController,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Enter Password",
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      ),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 20, right: 20, top: 20),
-                  child: Row(
+
+                  const SizedBox(height: 24),
+
+                  /// Sign Up Row
+                  Row(
                     children: [
                       const Text(
                         "Sign Up",
                         style: TextStyle(
                           fontSize: 27,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Colors.black87,
                         ),
                       ),
                       const Spacer(),
-                      LiquidButton(
+                      GlassmorphicContainer(
                         width: 55,
                         height: 55,
-                        backgroundColor: Colors.black.withOpacity(0.8),
-                        borderColor: Colors.black,
-                        onTap: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => HomePage(),
-                            ),
-                          );
-                        },
-                        child: const Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
+                        borderRadius: 28,
+                        blur: 20,
+                        alignment: Alignment.center,
+                        border: 1,
+                        linearGradient: LinearGradient(
+                          colors: [
+                            Colors.black.withOpacity(0.5),
+                            Colors.black.withOpacity(0.3),
+                          ],
+                        ),
+                        borderGradient: LinearGradient(
+                          colors: [Colors.black.withOpacity(0.7), Colors.black.withOpacity(0.7)],
+                        ),
+                        child: IconButton(
+                          icon: const Icon(Icons.arrow_forward, color: Colors.white),
+                          onPressed: () {
+                            // Navigation code here
+                          },
                         ),
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
-          ),
-
-          /// BOTTOM LINKS
-          Positioned(
-            bottom: 20,
-            left: 20,
-            child: InkWell(
-              child: const Text("Already have an account?"),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const Login()),
-                );
-              },
-            ),
-          ),
-          Positioned(
-            bottom: 13,
-            right: 20,
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.help),
+                ],
+              ),
             ),
           ),
         ],
@@ -155,151 +226,19 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 }
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
-
-  @override
-  State<Login> createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          /// 🔥 PARTICLE BACKGROUND
-          const Positioned.fill(
-            child: ParticleScene(),
-          ),
-
-          /// overlay
-          Positioned.fill(
-            child: IgnorePointer(
-              ignoring: true, // ✅ overlay touch ignore
-              child: Container(
-                color: Colors.white.withOpacity(0.85),
-              ),
-            ),
-          ),
-
-          ClipPath(
-            clipper: QuarterCircleClipper(),
-            child: Container(
-              width: 200,
-              height: 200,
-              color: const Color(0xffcff3f4),
-              child: const Center(
-                child: Text(
-                  "Welcome \nBack",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-          ),
-
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: GlowTextField(
-                    label: "Enter Email",
-                    backgroundColor: Colors.white,
-                    textColor: Colors.black,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: GlowTextField(
-                    label: "Enter Password",
-                    textColor: Colors.black,
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 20, right: 20, top: 20),
-                  child: Row(
-                    children: [
-                      const Text(
-                        "Sign In",
-                        style: TextStyle(
-                          fontSize: 27,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      const Spacer(),
-                      LiquidButton(
-                        width: 55,
-                        height: 55,
-                        backgroundColor: Colors.black.withOpacity(0.85),
-                        borderColor: Colors.black,
-                        onTap: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => HomePage(),
-                            ),
-                          );
-                        },
-                        child: const Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          Positioned(
-            bottom: 20,
-            left: 20,
-            child: InkWell(
-              child: const Text("Don't have any account?"),
-              onTap: () => Navigator.pop(context),
-            ),
-          ),
-          Positioned(
-            bottom: 20,
-            right: 20,
-            child: InkWell(
-              child: const Text("Forget password"),
-              onTap: () {
-                debugPrint("Forget password clicked");
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
+/// Custom clipper
 class QuarterCircleClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path();
-
     path.moveTo(size.width, 0);
     path.arcToPoint(
       Offset(0, size.height),
       radius: Radius.circular(size.width),
       clockwise: true,
     );
-
     path.lineTo(0, 0);
     path.close();
-
     return path;
   }
 
