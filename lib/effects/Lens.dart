@@ -1,29 +1,35 @@
-import 'dart:ui';
+import 'dart:ui' as ui;
 import '../BackdropEffectScope.dart';
 import '../Shaders.dart';
 import 'RenderEffect.dart';
 import '../highlight/HighlightStyle.dart';
 
 extension LensExtension on BackdropEffectScope {
-  Future<void> lens({
+  void lens({
     required double refractionHeight,
     required double refractionAmount,
     bool depthEffect = false,
     bool chromaticAberration = false,
-  }) async {
+  }) {
     if (refractionHeight <= 0 || refractionAmount <= 0) return;
 
     if (padding > 0) {
       padding = (padding - refractionHeight).clamp(0.0, double.infinity);
     }
 
-    final radii = getCornerRadii(shape, size, layoutDirection);
-
     final key = chromaticAberration 
        ? Shaders.roundedRectRefractionWithDispersion 
        : Shaders.roundedRectRefraction;
 
-    final program = await obtainRuntimeShader(key);
+    final program = getCachedShader(key);
+    if (program == null) {
+      if (this is BackdropEffectScopeImpl) {
+        requestShader(key, (this as BackdropEffectScopeImpl).onShaderAvailable);
+      }
+      return;
+    }
+
+    final radii = getCornerRadii(shape, size, layoutDirection);
     final shader = program.fragmentShader();
     
     shader.setFloat(0, size.width);
@@ -42,6 +48,6 @@ extension LensExtension on BackdropEffectScope {
        shader.setFloat(11, 1.0);
     }
     
-    effect(ImageFilter.shader(shader));
+    effect(ui.ImageFilter.shader(shader));
   }
 }

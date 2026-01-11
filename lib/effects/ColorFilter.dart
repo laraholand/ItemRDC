@@ -43,8 +43,14 @@ extension ColorFilterExtension on BackdropEffectScope {
     ]));
   }
 
-  Future<void> gammaAdjustment(double power) async {
-    final program = await obtainRuntimeShader(Shaders.gammaAdjustment);
+  void gammaAdjustment(double power) {
+    final program = getCachedShader(Shaders.gammaAdjustment);
+    if (program == null) {
+      if (this is BackdropEffectScopeImpl) {
+        requestShader(Shaders.gammaAdjustment, (this as BackdropEffectScopeImpl).onShaderAvailable);
+      }
+      return;
+    }
     final shader = program.fragmentShader();
     shader.setFloat(0, power);
     shader.setFloat(1, size.width);

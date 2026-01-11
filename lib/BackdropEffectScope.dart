@@ -37,6 +37,8 @@ class BackdropEffectScopeImpl extends RuntimeShaderCacheImpl implements Backdrop
   ShapeBorder get shape => _shape ?? const RoundedRectangleBorder();
   set shape(ShapeBorder s) => _shape = s;
 
+  VoidCallback? onShaderLoaded;
+
   bool update(
     double newDensity,
     double newFontScale,
@@ -70,6 +72,10 @@ class BackdropEffectScopeImpl extends RuntimeShaderCacheImpl implements Backdrop
      layoutDirection = TextDirection.ltr;
      padding = 0.0;
      renderEffect = null;
-     clear();
+     // clear(); // Don't clear cache every reset to avoid flickering
+  }
+
+  void onShaderAvailable() {
+    onShaderLoaded?.call();
   }
 }

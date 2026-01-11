@@ -195,6 +195,7 @@ class RenderDrawBackdrop extends RenderProxyBox {
         _fontScale = fontScale,
         _direction = direction {
     _shapeProvider = ShapeProvider(_shapeBlock);
+    _effectScope.onShaderLoaded = markNeedsPaint;
   }
 
   // Setters
